@@ -1,0 +1,4 @@
+{
+  "IMAGE_REPOSITORY": "mcr.microsoft.com",
+  "IMAGE_NAME": "playwright/dotnet"
+}

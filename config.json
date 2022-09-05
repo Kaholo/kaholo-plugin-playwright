@@ -4,7 +4,6 @@
   "type": "executer",
   "main": "app.js",
   "execProgram": "node",
-  "exposeRoute": false,
   "imgUrl": "logo.png",
   "version": "0.1.0",
   "description": "Kaholo Plugin for running Playwright tests in Docker containers",
@@ -24,10 +23,10 @@
         {
           "name": "projectDirectoryPath",
           "viewName": "Project Directory Path",
+          "description": "Path on the agent to the directory containing .NET project",
           "type": "string",
           "required": true,
-          "placeholder": "/home/user/dotnet-project",
-          "description": "Path on the agent to the directory containing .NET project"
+          "placeholder": "/home/user/dotnet-project"
         },
         {
           "name": "imageTag",
@@ -35,9 +34,7 @@
           "description": "Tag of the \"mcr.microsoft.com/playwright/dotnet\" Docker image to use",
           "type": "autocomplete",
           "autocompleteType": "function",
-          "functionName": "listDockerImageTagsAuto",
-          "required": false,
-          "default": "latest"
+          "functionName": "listDockerImageTagsAuto"
         }
       ]
     }
