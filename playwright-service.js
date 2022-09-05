@@ -40,10 +40,8 @@ async function executeDotnetTest(params) {
 
   if (_.isEmpty(stdout) && !_.isEmpty(stderr)) {
     throw new Error(stderr);
-  }
-  if (!_.isEmpty(stdout) && !_.isEmpty(stderr)) {
+  } else if (!_.isEmpty(stderr)) {
     console.error(stderr);
-    return stdout;
   }
   return stdout;
 }
