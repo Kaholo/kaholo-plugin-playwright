@@ -1,4 +1,3 @@
-const _ = require("lodash");
 const childProcess = require("child_process");
 const { promisify } = require("util");
 const { docker } = require("@kaholo/plugin-library");
@@ -38,9 +37,9 @@ async function executeDotnetTest(params) {
 
   const { stdout, stderr } = await exec(dockerCommand, { env: environmentVariables });
 
-  if (_.isEmpty(stdout) && !_.isEmpty(stderr)) {
+  if (!stdout && stderr) {
     throw new Error(stderr);
-  } else if (!_.isEmpty(stderr)) {
+  } else if (stderr) {
     console.error(stderr);
   }
   return stdout;
