@@ -6,7 +6,7 @@
   "execProgram": "node",
   "imgUrl": "logo.png",
   "version": "1.0.0",
-  "description": "Kaholo Plugin for running Playwright tests in Docker containers",
+  "description": "Playwright Web Testing and Automation",
   "category": [
     "Testing"
   ],
