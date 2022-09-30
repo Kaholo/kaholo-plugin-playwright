@@ -35,6 +35,14 @@
           "type": "autocomplete",
           "autocompleteType": "function",
           "functionName": "listDockerImageTagsAuto"
+        },
+        {
+          "name": "additionalCommandArguments",
+          "viewName": "Additional Command Arguments",
+          "description": "Additional arguments if needed for command \"dotnet test\"",
+          "type": "string",
+          "placeholder": "--verbosity minimal",
+          "default": ""
         }
       ]
     }
