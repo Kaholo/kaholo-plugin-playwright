@@ -31,10 +31,10 @@
         {
           "name": "imageTag",
           "viewName": "Docker Image Tag",
-          "description": "Tag of the \"mcr.microsoft.com/playwright/dotnet\" Docker image to use",
-          "type": "autocomplete",
-          "autocompleteType": "function",
-          "functionName": "listDockerImageTagsAuto"
+          "description": "Alternate tag for \"mcr.microsoft.com/playwright/dotnet\" Docker image if needed (default is \"latest\").",
+          "type": "string",
+          "default": "latest",
+          "placeholder": "latest"
         },
         {
           "name": "additionalCommandArguments",

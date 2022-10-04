@@ -15,8 +15,8 @@ const exec = promisify(childProcess.exec);
 async function executeDotnetTest(params) {
   const {
     projectDirectoryPath,
-    imageTag = "latest",
     additionalCommandArguments,
+    imageTag,
   } = params;
 
   const absoluteProjectPath = resolve(projectDirectoryPath);
@@ -25,9 +25,11 @@ async function executeDotnetTest(params) {
   }
 
   const fullImageName = `${IMAGE_REPOSITORY}/${IMAGE_NAME}:${imageTag}`;
-  const dotnetCommand = (
-    additionalCommandArguments ? `${DOTNET_TEST_COMMAND} ${additionalCommandArguments}` : DOTNET_TEST_COMMAND
-  );
+  const commands = [
+    "dotnet build &>/var/dotnet-build.log",
+    "find ./ -name playwright.ps1 -exec pwsh {} install \\; &>/var/playwright-install.log",
+    additionalCommandArguments ? `${DOTNET_TEST_COMMAND} ${additionalCommandArguments}` : DOTNET_TEST_COMMAND,
+  ];
   const projectDirVolumeDefinition = docker.createVolumeDefinition(projectDirectoryPath);
   const environmentVariables = mapEnvironmentVariablesFromVolumeDefinitions([
     projectDirVolumeDefinition,
@@ -35,7 +37,7 @@ async function executeDotnetTest(params) {
 
   const dockerCommand = docker.buildDockerCommand({
     image: fullImageName,
-    command: docker.sanitizeCommand(dotnetCommand),
+    command: sanitizeCommand(commands.join("; ")),
     volumeDefinitionsArray: [projectDirVolumeDefinition],
     workingDirectory: `$${projectDirVolumeDefinition.mountPoint.name}`,
   });
@@ -48,6 +50,10 @@ async function executeDotnetTest(params) {
     console.error(stderr);
   }
   return stdout;
+}
+
+function sanitizeCommand(command) {
+  return `bash -c ${JSON.stringify(command)}`;
 }
 
 function mapEnvironmentVariablesFromVolumeDefinitions(volumeDefinitions) {
