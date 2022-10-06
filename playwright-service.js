@@ -7,6 +7,7 @@ const { pathExists } = require("./helpers");
 const {
   IMAGE_NAME,
   IMAGE_REPOSITORY,
+  DOTNET_TEST_COMMAND,
 } = require("./consts.json");
 
 const exec = promisify(childProcess.exec);
@@ -15,6 +16,7 @@ async function executeDotnetTest(params) {
   const {
     projectDirectoryPath,
     imageTag = "latest",
+    additionalCommandArguments,
   } = params;
 
   const absoluteProjectPath = resolve(projectDirectoryPath);
@@ -23,8 +25,10 @@ async function executeDotnetTest(params) {
   }
 
   const fullImageName = `${IMAGE_REPOSITORY}/${IMAGE_NAME}:${imageTag}`;
-  const dotnetCommand = "dotnet test";
-  const projectDirVolumeDefinition = docker.createVolumeDefinition(absoluteProjectPath);
+  const dotnetCommand = (
+    additionalCommandArguments ? `${DOTNET_TEST_COMMAND} ${additionalCommandArguments}` : DOTNET_TEST_COMMAND
+  );
+  const projectDirVolumeDefinition = docker.createVolumeDefinition(projectDirectoryPath);
   const environmentVariables = mapEnvironmentVariablesFromVolumeDefinitions([
     projectDirVolumeDefinition,
   ]);
