@@ -1,8 +1,9 @@
 const childProcess = require("child_process");
 const { promisify } = require("util");
+const { resolve } = require("path");
 const { docker } = require("@kaholo/plugin-library");
 
-const { assertPathExistence } = require("./helpers");
+const { pathExists } = require("./helpers");
 const {
   IMAGE_NAME,
   IMAGE_REPOSITORY,
@@ -16,14 +17,14 @@ async function executeDotnetTest(params) {
     imageTag = "latest",
   } = params;
 
-  const projectDirectoryExists = await assertPathExistence(projectDirectoryPath);
-  if (!projectDirectoryExists) {
-    throw new Error(`Path ${projectDirectoryPath} does not exist on agent`);
+  const absoluteProjectPath = resolve(projectDirectoryPath);
+  if (!await pathExists(absoluteProjectPath)) {
+    throw new Error(`Path ${absoluteProjectPath} does not exist on agent`);
   }
 
   const fullImageName = `${IMAGE_REPOSITORY}/${IMAGE_NAME}:${imageTag}`;
   const dotnetCommand = "dotnet test";
-  const projectDirVolumeDefinition = docker.createVolumeDefinition(projectDirectoryPath);
+  const projectDirVolumeDefinition = docker.createVolumeDefinition(absoluteProjectPath);
   const environmentVariables = mapEnvironmentVariablesFromVolumeDefinitions([
     projectDirVolumeDefinition,
   ]);
