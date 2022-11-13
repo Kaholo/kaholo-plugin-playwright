@@ -19,12 +19,12 @@ async function executeDotnetTest(params) {
     imageTag,
   } = params;
 
-  const absoluteProjectPath = resolve(projectDirectoryPath ? projectDirectoryPath : './');
+  const absoluteProjectPath = resolve(projectDirectoryPath || "./");
   if (!await pathExists(absoluteProjectPath)) {
     throw new Error(`Path ${absoluteProjectPath} does not exist on agent`);
   }
 
-  const fullImageName = `${IMAGE_REPOSITORY}/${IMAGE_NAME}:${imageTag ? imageTag : 'latest'}`;
+  const fullImageName = `${IMAGE_REPOSITORY}/${IMAGE_NAME}:${imageTag || "latest"}`;
   const commands = [
     "dotnet build &>/var/dotnet-build.log",
     "find ./ -name playwright.ps1 -exec pwsh {} install \\; &>/var/playwright-install.log",
