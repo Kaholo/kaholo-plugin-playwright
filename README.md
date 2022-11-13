@@ -21,5 +21,5 @@ This method runs command `dotnet test` in the Project Directory Path to execute 
 ### Parameters
 Only the project directory path is strictly required. Other parameters may be left empty.
 * Project Directory Path - a location containing a file matching `*.csproj`, where the plugin will run `dotnet test`
-* Docker Image - the docker image to use, including specific tags if necessary, should the default `mcr.microsoft.com/playwright/dotnet` for some reason be insufficient.
-* Additional Command Arguments - more command line options to tack onto `dotnet test`, should that be desired.
+* Docker Image Tag - the the method uses by default `mcr.microsoft.com/playwright/dotnet:latest`. If for some reason a version other than `latest` is required it may be specified here, e.g. `v1.20.1-amd64`.
+* Additional Command Arguments - additional arguments specified here will be added onto the command `dotnet test`.
