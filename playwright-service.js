@@ -19,7 +19,7 @@ async function executeDotnetTest(params) {
     imageTag,
   } = params;
 
-  const absoluteProjectPath = resolve(projectDirectoryPath);
+  const absoluteProjectPath = resolve(projectDirectoryPath ? projectDirectoryPath : './');
   if (!await pathExists(absoluteProjectPath)) {
     throw new Error(`Path ${absoluteProjectPath} does not exist on agent`);
   }

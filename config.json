@@ -25,7 +25,7 @@
           "viewName": "Project Directory Path",
           "description": "Path to a directory containing a .NET Playwright project",
           "type": "string",
-          "required": true,
+          "required": false,
           "placeholder": "playwright/login-test",
           "learnUrl": "https://playwright.dev/dotnet/docs/writing-tests"
         },
