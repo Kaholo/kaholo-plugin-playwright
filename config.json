@@ -5,8 +5,8 @@
   "main": "app.js",
   "execProgram": "node",
   "imgUrl": "logo.png",
-  "version": "0.1.0",
-  "description": "Kaholo Plugin for running Playwright tests in Docker containers",
+  "version": "1.0.0",
+  "description": "Playwright Web Testing and Automation",
   "category": [
     "Testing"
   ],
@@ -23,18 +23,20 @@
         {
           "name": "projectDirectoryPath",
           "viewName": "Project Directory Path",
-          "description": "Path on the agent to the directory containing .NET project",
+          "description": "Path to a directory containing a .NET Playwright project",
           "type": "string",
-          "required": true,
-          "placeholder": "/home/user/dotnet-project"
+          "required": false,
+          "placeholder": "playwright/login-test",
+          "learnUrl": "https://playwright.dev/dotnet/docs/writing-tests"
         },
         {
           "name": "imageTag",
           "viewName": "Docker Image Tag",
-          "description": "Alternate tag for \"mcr.microsoft.com/playwright/dotnet\" Docker image if needed (default is \"latest\").",
+          "description": "Alternate tag for \"mcr.microsoft.com/playwright/dotnet\" Docker image (default is \"latest\")",
           "type": "string",
-          "default": "latest",
-          "placeholder": "latest"
+          "default": "",
+          "placeholder": "latest",
+          "learnUrl": "https://mcr.microsoft.com/en-us/product/playwright/dotnet/tags"
         },
         {
           "name": "additionalCommandArguments",
@@ -42,7 +44,8 @@
           "description": "Additional arguments if needed for command \"dotnet test\"",
           "type": "string",
           "placeholder": "--verbosity minimal",
-          "default": ""
+          "default": "",
+          "learnUrl": "https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-test"
         }
       ]
     }
