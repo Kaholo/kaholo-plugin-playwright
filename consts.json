@@ -1,0 +1,5 @@
+{
+  "IMAGE_REPOSITORY": "mcr.microsoft.com",
+  "IMAGE_NAME": "playwright/dotnet",
+  "DOTNET_TEST_COMMAND": "dotnet test"
+}
